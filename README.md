@@ -16,6 +16,7 @@ The script takes as input 4 parameters:
 2) board height
 3) number of mines
 4) boolean to display the GUI
+
 example: python mine_solver.py 16 16 40 False
 
 ***EXECUTION***
