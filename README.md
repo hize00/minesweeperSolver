@@ -1,13 +1,16 @@
 # minesweeperSolver
 
-MINE-A-JOY-A MINESWEEPER SOLVER
+**MINE-A-JOY-A MINESWEEPER SOLVER**
+
 
 HOW TO RUN
+
 1) extract the zip
 2) open cmd/bash/terminal where the script is located
 3) type: python mine_solver.py parameters (read below)
 
 PARAMETERS
+
 The script takes as input 4 parameters:
 1) board width
 2) board height
