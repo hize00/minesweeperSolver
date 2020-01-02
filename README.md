@@ -1,6 +1,4 @@
-# minesweeperSolver
-
-**MINE-A-JOY-A MINESWEEPER SOLVER**
+# **MINE-A-JOY-A MINESWEEPER SOLVER**
 
 
 ***HOW TO RUN***
