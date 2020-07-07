@@ -15,7 +15,7 @@ The script takes as input 4 parameters:
 3) number of mines
 4) boolean to display the GUI
 
-example: python mine_solver.py 16 16 40 False
+*example: python mine_solver.py 16 16 40 False*
 
 ***EXECUTION***
 
@@ -34,7 +34,7 @@ For example, without GUI, the algorithm solved a 30x16 board with 99 mines in 0.
 The algorithm should be stable. If you want to help me in debugging it, run it different times and note down if it loses by NOT clicking a random cell. This would mean there is something wrong in the calculations applied.<br>
 If the algorithm loses by clicking a random cell it's ok.<br>
 The algorithm will also writes the computations to the standard output (cmd/bash/terminal) so it is easy to see what the last move was.<br>
-
+<br><br>
 
 
 ***THANK YOU***
