@@ -1,0 +1,188 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: #0f0f1a;
+  color: #d0d0ff;
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 16px;
+  gap: 14px;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0 4px;
+}
+
+.header h1 {
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  color: #ffd700;
+  text-shadow: 0 0 12px #ffd70080;
+  text-transform: uppercase;
+}
+
+.header .subtitle {
+  font-size: 11px;
+  color: #7070a0;
+  letter-spacing: 0.1em;
+}
+
+/* ── Controls card ────────────────────────────────────────── */
+
+.card {
+  background: #16213e;
+  border: 1px solid #2a2a5a;
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+
+/* ── Step status bar ──────────────────────────────────────── */
+
+.step-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.step-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.step-badge.initial        { background: #1e3a5f; color: #60a5fa; }
+.step-badge.random_click   { background: #3a2a1e; color: #fb923c; }
+.step-badge.bomb_found     { background: #3a1e1e; color: #f87171; }
+.step-badge.free_cell_found { background: #1e3a1e; color: #4ade80; }
+.step-badge.null_expansion  { background: #1e2e3a; color: #22d3ee; }
+.step-badge.two_cell_logic  { background: #2a1e3a; color: '#c084fc'; }
+.step-badge.complete_mines  { background: '#3a1e1e'; color: #fca5a5; }
+.step-badge.complete_safe   { background: #1e3a2a; color: #6ee7b7; }
+.step-badge.game_over       { background: #5a1e1e; color: #ff6060; border: 1px solid #ff4040; }
+.step-badge.solved          { background: #3a3a1e; color: #ffd700; border: 1px solid #ffd70080; }
+
+.step-description {
+  font-size: 13px;
+  color: #b0b0d0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Stats row ────────────────────────────────────────────── */
+
+.stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #7070a0;
+}
+
+.stats span strong {
+  color: #d0d0ff;
+}
+
+/* ── Grid area ────────────────────────────────────────────── */
+
+.grid-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  overflow: auto;
+}
+
+/* ── Legend ───────────────────────────────────────────────── */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  font-size: 11px;
+  color: #7070a0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Step log ─────────────────────────────────────────────── */
+
+.step-log {
+  max-height: 120px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  font-size: 11px;
+  color: #7070a0;
+  padding: 4px 0;
+}
+
+.step-log-entry {
+  padding: 2px 6px;
+  border-radius: 2px;
+  display: flex;
+  gap: 8px;
+}
+
+.step-log-entry.current {
+  background: #1a1a3a;
+  color: #d0d0ff;
+}
+
+.step-log-entry .log-idx {
+  color: #4a4a6a;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ── Scrollbar styling ─────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0f0f1a; }
+::-webkit-scrollbar-thumb { background: #3a3a6a; border-radius: 3px; }
+
+/* ── Button hover states ───────────────────────────────────── */
+
+button:hover:not(:disabled) { filter: brightness(1.2); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+button { cursor: pointer; }
