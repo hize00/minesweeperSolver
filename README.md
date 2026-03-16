@@ -1,36 +1,76 @@
-# **MINE-A-JOY-A MINESWEEPER SOLVER**
+# MINE-A-JOY-A — Minesweeper Solver
 
+A minesweeper solving algorithm with a web-based step-by-step visualiser.
 
-***HOW TO RUN***
+---
 
-1) extract the zip
-2) open cmd/bash/terminal where the script is located
-3) type: python mine_solver.py parameters (read below)
+## How to run
 
-***PARAMETERS***
+```bash
+# Install Node.js if not already present (requires Homebrew on macOS)
+brew install node
 
-The script takes as input 4 parameters:
-1) board width
-2) board height
-3) number of mines
-4) boolean to display the GUI
+# From the project folder
+npm install
+npm run dev
+```
 
-*example: python mine_solver.py 16 16 40 False*
+Then open **http://localhost:5173** in your browser.
 
-***EXECUTION***
+---
 
-The script will generate a feasible board with the input parameters specified. The algorithm will then try to solve it by iteratively applying deterministic choices, and random clicks only if it is not appliable any deterministic choice.<br>
-It will also write all the steps and calculations computed in a folder named "logs" that will be created in the same path in which the python script is located.<br>
-The algorithm might not be always able to solve the board, especially if it is out of deterministic choices and must use a random move. If the algorithm loses by clicking a random cell it is considered bad luck :)<br>
+## Visualiser features
 
-***NOTES***
+- **Step-by-step replay** — every decision the algorithm makes is recorded as a snapshot. Use Prev / Next to walk through them one at a time, or hit Play to watch it run automatically.
+- **Playback speed** — six speed settings from 0.25× to 8×.
+- **Show full solution** — toggle to reveal the truth grid (complete mine layout) at any point, independently of how far the solver has progressed.
+- **Step log** — scrollable history of the last decisions, colour-coded by type (random click, mine found, safe cell, flood fill, 2-cell logic, etc.).
+- **Stats bar** — live counts of mines flagged, cells revealed, hidden cells and coverage %.
+- **Difficulty presets** — Easy (9×9 / 10 mines), Medium (16×16 / 40), Expert (30×16 / 99), or custom dimensions.
+- **Cell colour coding** — numbers 1–8 use distinct colours; mines are shown in red; empty (null) cells in dark grey; the cell(s) involved in the current step are highlighted in gold.
 
-Right now the GUI is really basic and work in progress, not thought as the core part of the project. Probably the library used (tkinter) is not the right tool in this case. That's why the project will be probably translated into Javascript when I will have time and will.<br>
-In addition, if the grid is too big (30x16) the GUI stream might crash (...ooops :-) ). If you want to use the GUI create a board up to 16x16. Right now with bigger boards the GUI might crash. As you will notice, the algorithm performance is much better without the GUI.<br>
-For example, without GUI, the algorithm solved a 30x16 board with 99 mines in 0.45303869247436523 seconds<br>
+---
 
-***HOW TO HELP***
+## Solving algorithm
 
-The algorithm should be stable. If you want to help me in debugging it, run it different times and note down if it loses by NOT clicking a random cell. This would mean there is something wrong in the calculations applied.<br>
-If the algorithm loses by clicking a random cell it's ok.<br>
-The algorithm will also writes the computations to the standard output (cmd/bash/terminal) so it is easy to see what the last move was.<br>
+The solver runs three strategies in order of preference, falling back to the next when the current one yields no new information:
+
+1. **Deterministic — single cell**
+   - *Mine finder*: if a revealed number cell has exactly N unknown neighbours remaining and N unflagged mines to account for, all those neighbours are mines.
+   - *Safe cell finder*: if all mines adjacent to a revealed cell are already flagged, every remaining unknown neighbour is safe to click.
+   - These two rules are applied in a loop until exhausted.
+
+2. **Deterministic — two-cell intersection**
+   Compares pairs of horizontally/vertically adjacent revealed cells. If their sets of unknown neighbours differ by exactly one cell, that unique cell can be identified as a mine or safe depending on the remaining mine counts.
+
+3. **Random click**
+   When no deterministic strategy applies, a random hidden cell is clicked. This is the only source of potential failure — clicking a mine by chance is considered bad luck, not a bug.
+
+**Flood fill**: clicking an empty cell (zero adjacent mines) automatically reveals the entire connected empty region and its numbered border, just like real Minesweeper.
+
+**Completeness shortcuts**: if the number of remaining hidden cells equals the number of unflagged mines, all hidden cells are flagged immediately. If all mines are already flagged, all remaining hidden cells are clicked at once.
+
+---
+
+## Project structure
+
+```
+mine_solver.py          # Original Python implementation (Tkinter GUI)
+src/
+  solver/
+    types.ts            # Cell, Grid, SolverStep types + difficulty presets
+    gridUtils.ts        # Pure grid helpers (adjacency, counters, flood fill)
+    gridCreator.ts      # Random board generation
+    solver.ts           # Full solving loop — returns array of step snapshots
+  components/
+    Grid.tsx            # CSS grid renderer with adaptive cell sizing
+    Controls.tsx        # Difficulty, playback and speed controls
+  App.tsx               # Main app state (step navigation, autoplay)
+  App.css               # Dark minesweeper theme
+```
+
+---
+
+## Notes
+
+The algorithm is not guaranteed to solve every board. When forced into a random click it may hit a mine — that outcome is expected and not a bug. Deterministic losses (losing without making a random click) would indicate a calculation error; please report those if found.
