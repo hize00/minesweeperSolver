@@ -188,9 +188,9 @@ export default function App() {
       <div className="grid-area">
         {grid ? (
           <GridView
-            grid={grid}
-            highlightCells={step?.highlightCells ?? []}
-            showingTruth={showTruth}
+            grid={showTruth && result?.truthGrid ? result.truthGrid : grid}
+            highlightCells={showTruth ? [] : (step?.highlightCells ?? [])}
+            showingTruth={false}
           />
         ) : (
           <div style={{ color: '#4a4a7a', fontSize: 18, padding: 40 }}>

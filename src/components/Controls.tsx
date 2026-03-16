@@ -116,7 +116,7 @@ export default function Controls({
           style={{ ...btn, marginLeft: 8, color: showTruth ? '#ffd700' : '#d0d0ff' }}
           onClick={onToggleTruth}
         >
-          {showTruth ? '🔍 Truth ON' : '🔍 Truth OFF'}
+          {showTruth ? '🔍 Show solver view' : '🔍 Show full solution'}
         </button>
       </div>
 
