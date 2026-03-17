@@ -1,4 +1,4 @@
-# MINE-A-JOY-A — Minesweeper Solver
+# MINE-A-JOY-A: Minesweeper Solver
 
 A minesweeper solving algorithm with a web-based step-by-step visualiser.
 
@@ -71,6 +71,14 @@ src/
 
 ---
 
+## Example Run
+
+https://github.com/user-attachments/assets/096091cd-856a-430a-b9e2-721265de8b23
+
+
+
+
+
 ## Notes
 
-The algorithm is not guaranteed to solve every board. When forced into a random click it may hit a mine — that outcome is expected and not a bug. Deterministic losses (losing without making a random click) would indicate a calculation error; please report those if found.
+The algorithm is not guaranteed to solve every board. When forced into a random click it may hit a mine: that outcome is expected and not a bug. Deterministic losses (losing without making a random click) would indicate a calculation error; please report those if found.
